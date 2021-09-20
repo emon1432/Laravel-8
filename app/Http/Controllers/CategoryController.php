@@ -6,6 +6,7 @@ use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
@@ -37,10 +38,19 @@ class CategoryController extends Controller
 
                 //or
 
-        $category = new Category;
-        $category->category_name = $request->category_name;
-        $category->user_id = Auth::user()->id;
-        $category->save();
+        // $category = new Category;
+        // $category->category_name = $request->category_name;
+        // $category->user_id = Auth::user()->id;
+        // $category->save();
+
+                //or
+
+        //Query Builder
+
+        $data = array();
+        $data['category_name'] = $request->category_name;
+        $data['user_id'] = Auth::user()->id;
+        DB::table('categories')->insert($data);
 
 
 
