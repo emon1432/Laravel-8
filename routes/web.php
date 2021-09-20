@@ -31,5 +31,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 //category 
-
 Route::get("/category/all",[CategoryController::class,'AllCat'])->name('all.category');
+//save category
+Route::post("/category/add",[CategoryController::class,'AddCat'])->name('store.category');

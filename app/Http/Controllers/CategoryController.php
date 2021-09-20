@@ -7,7 +7,22 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     //
-     function AllCat(){
+     public function AllCat(){
          return view('admin.category.index');
+     }
+
+     public function AddCat(Request $request){
+
+        $validated = $request->validate([
+            'category_name' => 'required|unique:categories|max:255',
+        ],
+
+        //custom msg for validation
+        [
+            'category_name.required' => 'Please Enter a Category Name',
+            'category_name.unique' => 'Category Name Already Exist',
+        ]
+    );
+
      }
 }
