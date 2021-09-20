@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
     //
      public function AllCat(){
-         return view('admin.category.index');
+         $categories = Category::all();
+         return view('admin.category.index',compact('categories'));
      }
 
      public function AddCat(Request $request){
@@ -21,8 +26,28 @@ class CategoryController extends Controller
         [
             'category_name.required' => 'Please Enter a Category Name',
             'category_name.unique' => 'Category Name Already Exist',
-        ]
-    );
+        ]);
+
+        // Category::insert([
+        //     'category_name'=> $request->category_name,
+        //     'user_id'=> Auth::user()->id,
+        //     'created_at'=> Carbon::now()
+        // ]);
+
+
+                //or
+
+        $category = new Category;
+        $category->category_name = $request->category_name;
+        $category->user_id = Auth::user()->id;
+        $category->save();
+
+
+
+
+
+        // return redirect('/category/all');
+        return Redirect()->back()->with('success','Category inserted successfully');
 
      }
 }
