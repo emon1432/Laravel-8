@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -28,3 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
     return view('dashboard',compact('users'));
 })->name('dashboard');
+
+//category 
+
+Route::get("/category/all",[CategoryController::class,'AllCat'])->name('all.category');
