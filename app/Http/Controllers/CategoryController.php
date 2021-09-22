@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+// use Illuminate\Database\Query\Builder;
 
 class CategoryController extends Controller
 {
     //
      public function AllCat(){
-         $categories = Category::all();
+         $categories = Category::latest()->paginate(5);
+        //  $categories = DB::table('categories')->latest()->paginate(5);
          return view('admin.category.index',compact('categories'));
      }
 
